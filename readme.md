@@ -14,3 +14,5 @@ Usage
 * Be on linux
 * Be somewhere you can access vmwardrobe
 * `python server.py`
+
+This will start it listening on port 3030. If you want to use a different port, just add it as an argument (i.e. `python server.py 5678`).

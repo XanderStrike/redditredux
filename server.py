@@ -3,6 +3,7 @@
 #  Alex Standke
 
 # Imports
+import sys
 from lib.bottle import hook, response, route, run, template, static_file
 import psycopg2 as pg
 
@@ -71,4 +72,9 @@ def asset(filename):
 
 
 # Run like the wind
-run(host='0.0.0.0', port=3030)
+if len(sys.argv) > 1:
+  p = sys.argv[1] 
+else:
+  p = 3030
+  
+run(host='0.0.0.0', port=p)
