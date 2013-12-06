@@ -47,12 +47,15 @@ def topic(topic):
 def render_comments(comments, depth):
   html_string = ""
   for c in comments:
-    html_string = html_string + "\n<div style='margin-left:" + str(depth*10) + "px' class='comment'><b>" + c[0] + "</b><p>" + c[1] + "</p>"
+    html_string += "\n<div style='margin-left:" + str(depth*10) + "px' class='comment'>"
+    html_string += "<b>" + c[0] + "</b><p>" + c[1] + "</p>"
+
     cursor.execute("select user_email, contents, id from comment where parent_comment=" + str(c[2]))
     child_comments = cursor.fetchall()
     if len(child_comments) > 0:
-      html_string = html_string + render_comments(child_comments, 1)
-    html_string = html_string + "</div>"
+      html_string += render_comments(child_comments, 1)
+    
+    html_string += "</div>"
   return html_string
 
 @route('/t/:topic/:link_id')
