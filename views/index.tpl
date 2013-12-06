@@ -1,6 +1,4 @@
 % rebase('base', title="Topics | Link Sharer Deluxueu")
-<h1>Link Sharer Deluxuxueue</h1>
-
 <ul class="nav nav-tabs">
   <li><a href="/top">Votes</a></li>
   <li><a href="/sub">Subscribers</a></li>

@@ -1,4 +1,5 @@
 % rebase('base', title="Topics | Link Sharer Deluxueu")
+<a href="/" class='pull-right'>back</a>
 <legend>{{topic}}</legend>
 
 Top rated links:
@@ -8,4 +9,3 @@ Top rated links:
   % end
 </ul>
 
-<a href="/">back</a>

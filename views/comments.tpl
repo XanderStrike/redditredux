@@ -1,5 +1,6 @@
 % rebase('base', title="Topics | Link Sharer Deluxueu")
-<legend>{{link[1]}}</legend>
+<a href="/t/{{link[4]}}" class="pull-right">back</a>
+<legend>{{link[1]}} <font color="#bbb" size=3>posted by {{link[3]}}</font></legend>
 
 <a href="{{link[0]}}">{{link[0]}}</a>
 
