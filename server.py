@@ -37,20 +37,30 @@ def topular():
 # Topic view
 @route('/t/:topic')
 def topic(topic):
-  cursor.execute("select sum(score) as score, link_address, headline from link left join link_vote on (address = link_address) where link_topic='"+topic+"' group by link_address, link.headline order by score desc")
+  cursor.execute("select sum(score) as score, link_address, headline, id from link left join link_vote on (address = link_address) where link_topic='"+topic+"' group by id, link_address, link.headline order by score desc")
   links = cursor.fetchall()
   return template('topic', topic=topic, links=links)
 
 
 # Comment view
-@route('/t/:topic/:address')
-def comments(topic, address):
-  print "select address, headline, description, user_email from link where address='"+address+"' and topic_name='"+topic+"'"
-  cursor.execute("select address, headline, description, user_email from link where address='"+address+"' and topic_name='"+topic+"'")
+def render_comments(comments, depth):
+  html_string = ""
+  for c in comments:
+    html_string = html_string + "\n<div style='margin-left:" + str(depth*10) + "px' class='comment'><b>" + c[0] + "</b><p>" + c[1] + "</p>"
+    cursor.execute("select user_email, contents, id from comment where parent_comment=" + str(c[2]))
+    child_comments = cursor.fetchall()
+    if len(child_comments) > 0:
+      html_string = html_string + render_comments(child_comments, 1)
+    html_string = html_string + "</div>"
+  return html_string
+
+@route('/t/:topic/:link_id')
+def comments(topic, link_id):
+  cursor.execute("select address, headline, description, user_email from link where id='"+link_id+"' and topic_name='"+topic+"'")
   link = cursor.fetchall()
-  print link
-  cursor.execute("select user_email, contents from comment where link_topic='"+topic+"' and link_address='"+address+"'")
+  cursor.execute("select user_email, contents, id from comment where link_topic='"+topic+"' and link_address='"+str(link[0][0])+"'")
   comments = cursor.fetchall()
+  comments = render_comments(comments, 0)
   return template('comments', link=link[0], comments=comments)
 
 

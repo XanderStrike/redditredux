@@ -5,10 +5,6 @@
 
 <p>{{link[2]}}</p>
 
-Comments:
-<table>
-  <tr><th>User</th><th>Comment</th></tr>
-  % for c in comment:
-    <tr><td>{{c[0]}}</td><td>{{c[1]}}</td></tr>
-  % end
-</table>
+<h4>Comments</h4>
+<div id="comments">{{!comments}}</div>
+
